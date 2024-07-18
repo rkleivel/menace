@@ -146,6 +146,7 @@ def play_game(first, second, silent=False):
         print(board)
 
     while True:
+        # Player X
         if not silent:
             first.print_probability(board)
         move = first.get_move(board)
@@ -159,20 +160,23 @@ def play_game(first, second, silent=False):
         if not silent:
             print(board)
         if board.winning():
+            print("Player X wins")
             first.win_game()
             second.lose_game()
             break
         if board.draw():
+            print("It's a draw between X and O")
             first.draw_game()
             second.draw_game()
             break
 
+        # Player O
         if not silent:
             second.print_probability(board)
         move = second.get_move(board)
         if move == -1:
             if not silent:
-                print("Player resigns")
+                print("Player O resigns")
             second.lose_game()
             first.win_game()
             break
@@ -180,6 +184,7 @@ def play_game(first, second, silent=False):
         if not silent:
             print(board)
         if board.winning():
+            print("Player O wins")
             second.win_game()
             first.lose_game()
             break
@@ -190,8 +195,8 @@ if __name__ == '__main__':
     go_second_menace = MenacePlayer()
     human = HumanPlayer()
 
-    for i in range(1000):
-        play_game(go_first_menace, go_second_menace, silent=True)
+    for i in range(5000):
+        play_game(go_first_menace, go_second_menace, silent=False)
 
     go_first_menace.print_stats()
     go_second_menace.print_stats()
